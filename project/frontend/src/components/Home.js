@@ -22,9 +22,10 @@ const Home = () => {
                 toast.error("Enter password first");
                 return;
             }
-            const response = await axios.post('http://localhost:5000/api/login', { username, password });
-            // handle login success
+            const response = await axios.post(`${process.env.REACT_APP_URL}/api/login`, { username, password });
             
+            // handle login success
+            console.log(response);
             if(response.status===200){
                 navigate('/landing', { state: { username, password } });
             }
@@ -53,10 +54,8 @@ const Home = () => {
                 toast.error("Enter password first");
                 return;
             }
-            const response = await axios.post('http://localhost:5000/api/register', { username, password });
-            // handle registration success
-            // console.log(response);
-            // navigate('/');
+            const response = await axios.post(`${process.env.REACT_APP_URL}/api/register`, { username, password });
+           
             if (response.status === 201) toast.success('User registered successfully');
 
         } catch (error) {

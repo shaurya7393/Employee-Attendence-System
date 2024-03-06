@@ -3,21 +3,23 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./controllers/auth');
-// const presenceRoutes = require('./controllers/presenceRoute');
-
+const dotenv = require('dotenv');
 const app = express();
-const PORT = 5000;
 
+
+// load environment variables
+dotenv.config();
+const PORT = process.env.PORT;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
+
 // Routes
 app.use('/api', authRoutes);
-// app.use('/api/presence', presenceRoutes);
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://shaurya:Ayush123@cluster0.6mzcap8.mongodb.net/')
+mongoose.connect(`${process.env.MONGO_URI}`)
     .then(() => {
         console.log('Connected to MongoDB');
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

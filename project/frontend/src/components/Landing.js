@@ -9,7 +9,7 @@ const Landing = () => {
   const { username, password } = location.state;
   const handlelogout = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/logout', {username,password});
+      const response = await axios.post(`${process.env.REACT_APP_URL}/api/logout`, {username,password});
       // handle login success
       console.log(response);
       if (response.status === 200) {
